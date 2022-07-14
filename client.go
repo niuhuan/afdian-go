@@ -87,7 +87,7 @@ func (c *Client) QuerySponsor(page int64) (*PageData[Sponsor], error) {
 //////////////////// 爱发电调服务器相关 ////////////////////
 
 // ParseOrder 爱发电调服务器的请求内容, 解析成Order
-func (c *Client) ParseOrder(body []byte) (*Order, error) {
+func ParseOrder(body []byte) (*Order, error) {
 	var parseBody AfdianCall
 	err := json.Unmarshal(body, &parseBody)
 	if err != nil {
@@ -98,14 +98,15 @@ func (c *Client) ParseOrder(body []byte) (*Order, error) {
 
 // 应该返回给爱发电一个json
 
-func (c *Client) CallResponseString() string {
+func CallResponseString() string {
 	return "{\"ec\":200,\"em\":\"\"}"
 }
 
-func (c *Client) CallResponseStruct() (point *AfdianCallResponse) {
-	err := json.Unmarshal([]byte("{\"ec\":200,\"em\":\"\"}"), point)
+func CallResponseStruct() *AfdianCallResponse {
+	var rsp AfdianCallResponse
+	err := json.Unmarshal([]byte(CallResponseString()), &rsp)
 	if err != nil {
 		panic(err)
 	}
-	return
+	return &rsp
 }
