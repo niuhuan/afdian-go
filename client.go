@@ -3,13 +3,21 @@ package afdian
 import (
 	"bytes"
 	"crypto/md5"
-	"encoding/json"
 	"errors"
 	"fmt"
+	jsoniter "github.com/json-iterator/go"
+	"github.com/json-iterator/go/extra"
 	"io/ioutil"
 	"net/http"
 	"time"
 )
+
+var json jsoniter.API
+
+func init() {
+	extra.RegisterFuzzyDecoders()
+	json = jsoniter.ConfigCompatibleWithStandardLibrary
+}
 
 const AfDianOpenApiUri = "https://afdian.net/api/open"
 
@@ -37,7 +45,6 @@ func QueryAfdian[T any, R any](c *Client, requestPath string, params *T) (*R, er
 	if err != nil {
 		return nil, err
 	}
-	println(string(buff))
 	req, err := http.NewRequest("POST", fmt.Sprintf("%v%v", AfDianOpenApiUri, requestPath), bytes.NewBuffer(buff))
 	if err != nil {
 		return nil, err
@@ -52,7 +59,6 @@ func QueryAfdian[T any, R any](c *Client, requestPath string, params *T) (*R, er
 	if err != nil {
 		return nil, err
 	}
-	println(string(buff))
 	var response AfdianResponse[R]
 	err = json.Unmarshal(buff, &response)
 	if err != nil {

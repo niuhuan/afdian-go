@@ -14,22 +14,22 @@ type PageData[T any] struct {
 }
 
 type Order struct {
-	OutTradeNo     string `json:"out_trade_no"`
-	UserId         string `json:"user_id"`
-	PlanId         string `json:"plan_id"`
-	Month          int    `json:"month"`
-	TotalAmount    string `json:"total_amount"`
-	ShowAmount     string `json:"show_amount"`
-	Status         int    `json:"status"`
-	Remark         string `json:"remark"`
-	RedeemId       string `json:"redeem_id"`
-	ProductType    int    `json:"product_type"`
-	Discount       string `json:"discount"`
-	SkuDetail      []Sku  `json:"sku_detail"`
-	UserPrivateId  string `json:"user_private_id"`
-	AddressPerson  string `json:"address_person"`
-	AddressPhone   string `json:"address_phone"`
-	AddressAddress string `json:"address_address"`
+	OutTradeNo     string  `json:"out_trade_no"`
+	UserId         string  `json:"user_id"`
+	PlanId         string  `json:"plan_id"`
+	Month          int     `json:"month"`
+	TotalAmount    float64 `json:"total_amount"`
+	ShowAmount     float64 `json:"show_amount"`
+	Status         int     `json:"status"`
+	Remark         string  `json:"remark"`
+	RedeemId       string  `json:"redeem_id"`
+	ProductType    int     `json:"product_type"`
+	Discount       float64 `json:"discount"`
+	SkuDetail      []Sku   `json:"sku_detail"`
+	UserPrivateId  string  `json:"user_private_id"`
+	AddressPerson  string  `json:"address_person"`
+	AddressPhone   string  `json:"address_phone"`
+	AddressAddress string  `json:"address_address"`
 }
 
 type Sku struct {
@@ -48,12 +48,12 @@ type Request struct {
 }
 
 type Sponsor struct {
-	AllSumAmount string `json:"all_sum_amount"`
-	CurrentPlan  Plan   `json:"current_plan"`
-	FirstPayTime int    `json:"first_pay_time"`
-	LastPayTime  int    `json:"last_pay_time"`
-	SponsorPlans []Plan `json:"sponsor_plans"`
-	User         User   `json:"user"`
+	AllSumAmount float64 `json:"all_sum_amount"`
+	CurrentPlan  Plan    `json:"current_plan"`
+	FirstPayTime int     `json:"first_pay_time"`
+	LastPayTime  int     `json:"last_pay_time"`
+	SponsorPlans []Plan  `json:"sponsor_plans"`
+	User         User    `json:"user"`
 }
 
 type User struct {
@@ -80,21 +80,23 @@ type Plan struct {
 	Permanent            int           `json:"permanent"`
 	Pic                  string        `json:"pic"`
 	PlanId               string        `json:"plan_id"`
-	Price                string        `json:"price"`
+	Price                float64       `json:"price"`
 	ProductType          int           `json:"product_type"`
 	Rank                 int           `json:"rank"`
 	RankType             int           `json:"rankType"`
 	SaleLimitCount       int           `json:"sale_limit_count"`
-	ShowPrice            string        `json:"show_price"`
+	ShowPrice            float64       `json:"show_price"`
 	ShowPriceAfterAdjust string        `json:"show_price_after_adjust"`
 	SkuProcessed         []interface{} `json:"sku_processed"`
 	Status               int           `json:"status"`
-	Timing               struct {
-		TimingOff int `json:"timing_off"`
-		TimingOn  int `json:"timing_on"`
-	} `json:"timing"`
-	UpdateTime int    `json:"update_time"`
-	UserId     string `json:"user_id"`
+	Timing               Timing        `json:"timing"`
+	UpdateTime           int           `json:"update_time"`
+	UserId               string        `json:"user_id"`
+}
+
+type Timing struct {
+	TimingOff int `json:"timing_off"`
+	TimingOn  int `json:"timing_on"`
 }
 
 //////////////////// 爱发电调服务器相关 ////////////////////
