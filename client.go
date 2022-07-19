@@ -102,6 +102,15 @@ func ParseOrder(body []byte) (*Order, error) {
 	return &parseBody.Data.Order, nil
 }
 
+// ParseOrderInterface 爱发电调服务器的请求内容, 解析成Order (AWS无法使用json模糊解析)
+func ParseOrderInterface(body interface{}) (*Order, error) {
+	buff, err := json.Marshal(&body)
+	if err != nil {
+		return nil, err
+	}
+	return ParseOrder(buff)
+}
+
 // 应该返回给爱发电一个json
 
 func CallResponseString() string {
