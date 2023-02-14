@@ -26,6 +26,7 @@ type Order struct {
 	ProductType    int     `json:"product_type"`
 	Discount       float64 `json:"discount"`
 	SkuDetail      []Sku   `json:"sku_detail"`
+	PlanTitle      string  `json:"plan_title"`
 	UserPrivateId  string  `json:"user_private_id"`
 	AddressPerson  string  `json:"address_person"`
 	AddressPhone   string  `json:"address_phone"`
