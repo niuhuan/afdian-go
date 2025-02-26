@@ -3,6 +3,7 @@ package afdian_test
 import (
 	"encoding/json"
 	"io/ioutil"
+	"strings"
 	"testing"
 
 	"github.com/niuhuan/afdian-go"
@@ -45,4 +46,44 @@ func TestAppClient_DumpCookies(t *testing.T) {
 	}
 	txt, _ := json.Marshal(ma)
 	println(string(txt))
+}
+
+func TestAppClient_Plans(t *testing.T) {
+	data, err := ioutil.ReadFile("account_id.txt")
+	if err != nil {
+		t.Fatal(err)
+	}
+	accountId := string(data)
+	accountId = strings.TrimSpace(accountId)
+	client := afdian.NewAppClient()
+	login(client, t)
+	plains, err := client.Plans(accountId)
+	if err != nil {
+		t.Fatal(err)
+	}
+	buff, err := json.Marshal(plains)
+	if err != nil {
+		t.Fatal(err)
+	}
+	println(string(buff))
+}
+
+func TestAppClient_PlanSkus(t *testing.T) {
+	data, err := ioutil.ReadFile("account_plan_id.txt")
+	if err != nil {
+		t.Fatal(err)
+	}
+	planId := string(data)
+	planId = strings.TrimSpace(planId)
+	client := afdian.NewAppClient()
+	login(client, t)
+	plains, err := client.PlanSkus(planId)
+	if err != nil {
+		t.Fatal(err)
+	}
+	buff, err := json.Marshal(plains)
+	if err != nil {
+		t.Fatal(err)
+	}
+	println(string(buff))
 }

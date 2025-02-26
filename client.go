@@ -20,7 +20,7 @@ func init() {
 	json = jsoniter.ConfigCompatibleWithStandardLibrary
 }
 
-const AfDianOpenApiUri = "https://afdian.com/api/open"
+const AfDianOpenApiUri = "https://ifdian.net/api/open"
 
 type Client struct {
 	http.Client
@@ -80,7 +80,7 @@ func (c *Client) Ping() error {
 // QueryOrder 查订单
 func (c *Client) QueryOrder(page int64) (*PageData[Order], error) {
 	return QueryAfdian[map[string]any, PageData[Order]](c, "/query-order", &map[string]any{
-		"page":         page,
+		"page": page,
 	})
 }
 

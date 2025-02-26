@@ -14,26 +14,26 @@ type PageData[T any] struct {
 }
 
 type Order struct {
-	OutTradeNo     string  `json:"out_trade_no"`
-	UserId         string  `json:"user_id"`
-	PlanId         string  `json:"plan_id"`
-	Month          int     `json:"month"`
-	TotalAmount    float64 `json:"total_amount"`
-	ShowAmount     float64 `json:"show_amount"`
-	Status         int     `json:"status"`
-	Remark         string  `json:"remark"`
-	RedeemId       string  `json:"redeem_id"`
-	ProductType    int     `json:"product_type"`
-	Discount       float64 `json:"discount"`
-	SkuDetail      []Sku   `json:"sku_detail"`
-	PlanTitle      string  `json:"plan_title"`
-	UserPrivateId  string  `json:"user_private_id"`
-	AddressPerson  string  `json:"address_person"`
-	AddressPhone   string  `json:"address_phone"`
-	AddressAddress string  `json:"address_address"`
+	OutTradeNo     string     `json:"out_trade_no"`
+	UserId         string     `json:"user_id"`
+	PlanId         string     `json:"plan_id"`
+	Month          int        `json:"month"`
+	TotalAmount    float64    `json:"total_amount"`
+	ShowAmount     float64    `json:"show_amount"`
+	Status         int        `json:"status"`
+	Remark         string     `json:"remark"`
+	RedeemId       string     `json:"redeem_id"`
+	ProductType    int        `json:"product_type"`
+	Discount       float64    `json:"discount"`
+	SkuDetail      []OrderSku `json:"sku_detail"`
+	PlanTitle      string     `json:"plan_title"`
+	UserPrivateId  string     `json:"user_private_id"`
+	AddressPerson  string     `json:"address_person"`
+	AddressPhone   string     `json:"address_phone"`
+	AddressAddress string     `json:"address_address"`
 }
 
-type Sku struct {
+type OrderSku struct {
 	SkuId   string `json:"sku_id"`
 	Count   int    `json:"count"`
 	Name    string `json:"name"`
@@ -49,12 +49,12 @@ type Request struct {
 }
 
 type Sponsor struct {
-	AllSumAmount float64 `json:"all_sum_amount"`
-	CurrentPlan  Plan    `json:"current_plan"`
-	FirstPayTime int     `json:"first_pay_time"`
-	LastPayTime  int     `json:"last_pay_time"`
-	SponsorPlans []Plan  `json:"sponsor_plans"`
-	User         User    `json:"user"`
+	AllSumAmount float64     `json:"all_sum_amount"`
+	CurrentPlan  OrderPlan   `json:"current_plan"`
+	FirstPayTime int         `json:"first_pay_time"`
+	LastPayTime  int         `json:"last_pay_time"`
+	SponsorPlans []OrderPlan `json:"sponsor_plans"`
+	User         User        `json:"user"`
 }
 
 type User struct {
@@ -64,7 +64,7 @@ type User struct {
 	UserPrivateId string `json:"user_private_id"`
 }
 
-type Plan struct {
+type OrderPlan struct {
 	BundleSkuSelectCount int           `json:"bundle_sku_select_count"`
 	BundleStock          int           `json:"bundle_stock"`
 	CanBuyHide           int           `json:"can_buy_hide"`

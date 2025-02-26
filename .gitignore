@@ -2,3 +2,5 @@
 *.iml
 /afdian.json
 /account.json
+/account_id.txt
+/account_plan_id.txt

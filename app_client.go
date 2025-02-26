@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-const AfDianAppUrl = "https://afdian.com/api"
+const AfDianAppUrl = "https://ifdian.net/api"
 
 type AppClient struct {
 	jar    *cookiejar.Jar
@@ -66,13 +66,40 @@ func (c *AppClient) MyAccount() (*MyAccount, error) {
 	return RequestApp[MyAccount](c, http.MethodGet, "/my/account", nil)
 }
 
+func (c *AppClient) Plans(userId string) (*Plans, error) {
+	return RequestApp[Plans](
+		c,
+		http.MethodGet,
+		"/creator/get-plans",
+		url.Values{
+			"user_id":         {userId},
+			"album_id":        {""},
+			"unlock_plan_ids": {""},
+			"diy":             {""},
+			"affiliate_code":  {""},
+		},
+	)
+}
+
+func (c *AppClient) PlanSkus(planId string) (*PlanSkus, error) {
+	return RequestApp[PlanSkus](
+		c,
+		http.MethodGet,
+		"/creator/get-plan-skus",
+		url.Values{
+			"plan_id": {planId},
+			"is_ext":  {""},
+		},
+	)
+}
+
 func (c *AppClient) SetAuthToken(token string) {
-	c.jar.SetCookies(&url.URL{Scheme: "https", Host: "afdian.com"}, []*http.Cookie{
+	c.jar.SetCookies(&url.URL{Scheme: "https", Host: "ifdian.net"}, []*http.Cookie{
 		{
 			Name:    "auth_token",
 			Value:   token,
 			Path:    "/",
-			Domain:  "afdian.com",
+			Domain:  "ifdian.net",
 			Expires: time.Now().AddDate(10, 0, 0),
 		},
 	})
@@ -174,6 +201,6 @@ type TransportWithUA struct {
 // 实现 RoundTripper 接口，添加统一 User-Agent
 func (t *TransportWithUA) RoundTrip(req *http.Request) (*http.Response, error) {
 	// req.Header.Set("User-Agent", t.UA) // 设置统一的 User-Agent
-	// req.Header.Set("Referer", "https://afdian.com/")
+	// req.Header.Set("Referer", "https://ifdian.net/")
 	return t.Transport.RoundTrip(req) // 转发请求
 }
