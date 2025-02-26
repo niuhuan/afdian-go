@@ -2,9 +2,10 @@ package afdian_test
 
 import (
 	"encoding/json"
-	"github.com/niuhuan/afdian-go"
 	"io/ioutil"
 	"testing"
+
+	"github.com/niuhuan/afdian-go"
 )
 
 func client() *afdian.Client {
@@ -45,4 +46,8 @@ func TestClient_QueryOrder(t *testing.T) {
 
 func TestClient_QuerySponsor(t *testing.T) {
 	printResult(client().QuerySponsor(1))
+}
+
+func TestClient_QueryOrderByNo(t *testing.T) {
+	printResult(client().QueryOrderByNo("202502122353435510010232860"))
 }

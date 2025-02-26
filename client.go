@@ -5,11 +5,12 @@ import (
 	"crypto/md5"
 	"errors"
 	"fmt"
-	jsoniter "github.com/json-iterator/go"
-	"github.com/json-iterator/go/extra"
 	"io/ioutil"
 	"net/http"
 	"time"
+
+	jsoniter "github.com/json-iterator/go"
+	"github.com/json-iterator/go/extra"
 )
 
 var json jsoniter.API
@@ -19,7 +20,7 @@ func init() {
 	json = jsoniter.ConfigCompatibleWithStandardLibrary
 }
 
-const AfDianOpenApiUri = "https://afdian.net/api/open"
+const AfDianOpenApiUri = "https://afdian.com/api/open"
 
 type Client struct {
 	http.Client
@@ -79,8 +80,23 @@ func (c *Client) Ping() error {
 // QueryOrder 查订单
 func (c *Client) QueryOrder(page int64) (*PageData[Order], error) {
 	return QueryAfdian[map[string]any, PageData[Order]](c, "/query-order", &map[string]any{
-		"page": page,
+		"page":         page,
 	})
+}
+
+// QueryOrderByNo 查订单
+func (c *Client) QueryOrderByNo(outTradeNo string) (*Order, error) {
+	result, err := QueryAfdian[map[string]any, PageData[Order]](c, "/query-order", &map[string]any{
+		"page":         1,
+		"out_trade_no": outTradeNo,
+	})
+	if err != nil {
+		return nil, err
+	}
+	if len(result.List) == 0 {
+		return nil, nil
+	}
+	return &result.List[0], nil
 }
 
 // QuerySponsor 查赞助者
